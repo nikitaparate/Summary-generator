@@ -1,6 +1,6 @@
-# URL Summariser
+# Summary Generator
 
-URL-Summariser is a web application that takes a URL as input and provides a concise summary of the content. It can handle various types of content, including blogs, articles, and research papers.
+Summary Generator is a web application that takes a URL as input and provides a concise summary of the content. It can handle various types of content, including blogs, articles, and research papers.
 
 ![Alt text](templates/example.png)
 
