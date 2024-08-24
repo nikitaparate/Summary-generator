@@ -43,7 +43,7 @@ To get started with URL-Summariser, follow these steps:
 
 ## Example
 1. Enter a URL into the search bar.
-2. Click the "Summarize" button (or the equivalent action).
+2. Click the "Get Summary" button.
 3. The application will display a summary of the content from the provided URL.
 
 
