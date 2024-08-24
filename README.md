@@ -23,7 +23,7 @@ To get started with URL-Summariser, follow these steps:
 2. **Set Up a Virtual Environment (Optional but Recommended)**
 
    ```bash
-   conda create -n env env_name
+   conda create -n env_name python=3.8
    conda activate env_name
 
 3. **Install the Required Packages**
