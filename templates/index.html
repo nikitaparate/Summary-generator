@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary Generator</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4E47B3;
+            --secondary-color: #6C63FF;
+            --background-color: #F0F4F8;
+            --text-color: #333;
+        }
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 1.2em;
+            color: #666;
+        }
+        .hero-image {
+            width: 100%;
+            max-width: 400px;
+            display: block;
+            margin: 0 auto 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .search-container {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        #url-input {
+            flex-grow: 1;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 30px 0 0 30px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        #url-input:focus {
+            border-color: var(--primary-color);
+        }
+        .fancy-button {
+            padding: 12px 30px;
+            font-size: 16px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: none;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        .fancy-button:hover {
+            background-color: #5753d9;
+            box-shadow: 0 4px 10px rgba(108, 99, 255, 0.3);
+        }
+        #loading {
+            text-align: center;
+            display: none;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        #result {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+        #result h2 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+        #result p {
+            white-space: pre-wrap;
+            word-break: break-word;
+            line-height: 1.6;
+        }
+        #debug-info {
+            background-color: #e9ecef;
+            padding: 15px;
+            margin-top: 30px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Summary Generator</h1>
+            <p class="subtitle">Effortlessly Summarize Content from Any Link: Blogs, Papers, Articles, and More</p>
+        </header>
+        
+    <!--    <img src="/api/placeholder/600/300" alt="Content Extraction Illustration" class="hero-image"> -->
+        
+        <div class="search-container">
+            <input type="text" id="url-input" placeholder="Enter URL">
+            <button onclick="extractContent()" class="fancy-button">Get Summary</button>
+        </div>
+        
+        <div id="loading">
+            <div class="spinner"></div>
+            <p>Processing...</p>
+        </div>
+        
+        <div id="result"></div>
+
+        {% if debug_info %}
+        <div id="debug-info">
+            <h3>Debug Information:</h3>
+            <pre>{{ debug_info }}</pre>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function extractContent() {
+            const url = document.getElementById('url-input').value;
+            const resultDiv = document.getElementById('result');
+            const loadingDiv = document.getElementById('loading');
+
+            resultDiv.innerHTML = '';
+            loadingDiv.style.display = 'block';
+
+            axios.post('/', { url: url }, {
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            })
+            .then(function (response) {
+                loadingDiv.style.display = 'none';
+                resultDiv.innerHTML = `
+                    <h2>Summary</h2>
+                    <p>${response.data.summary}</p>
+                `;
+            })
+            .catch(function (error) {
+                loadingDiv.style.display = 'none';
+                resultDiv.innerHTML = '<h2>Error</h2><p>' + error.message + '</p>';
+            });
+        }
+    </script>
+</body>
+</html>
