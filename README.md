@@ -2,6 +2,8 @@
 
 URL-Summariser is a web application that takes a URL as input and provides a concise summary of the content. It can handle various types of content, including blogs, articles, and research papers.
 
+![Alt text](templates/example.png)
+
 ## Features
 
 - Summarizes content from any URL.
@@ -43,7 +45,7 @@ To get started with URL-Summariser, follow these steps:
 1. Enter a URL into the search bar.
 2. Click the "Summarize" button (or the equivalent action).
 3. The application will display a summary of the content from the provided URL.
-![Alt text](path/to/your/image.png)
+
 
 
    
